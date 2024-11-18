@@ -718,7 +718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7.5, y: -244}
+  m_AnchoredPosition: {x: 7.5, y: -254}
   m_SizeDelta: {x: -1015, y: -750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1462816399
@@ -973,7 +973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7.5, y: -83}
+  m_AnchoredPosition: {x: 7.5, y: -76}
   m_SizeDelta: {x: -1014.99994, y: -750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1495396193
@@ -1244,7 +1244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2862193243416251068, guid: f9388a690e3af3a4eb91e6679ea0affd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2862193243416251068, guid: f9388a690e3af3a4eb91e6679ea0affd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1342,7 +1342,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -415.7294, y: 259}
+  m_AnchoredPosition: {x: -383, y: 185}
   m_SizeDelta: {x: -1041.4587, y: -770}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2066317521
@@ -1378,7 +1378,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Zomib World
+  m_Text: Zombi World
 --- !u!222 &2066317522
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1424,7 +1424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7.5, y: -164}
+  m_AnchoredPosition: {x: 7.5, y: -168}
   m_SizeDelta: {x: -1014.99994, y: -754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2092073549

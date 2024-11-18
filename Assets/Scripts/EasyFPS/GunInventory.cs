@@ -57,18 +57,17 @@ public class GunInventory : MonoBehaviour {
 
 
 	/*
-	 * Grabing the icons from the Resources/Weapo_Icons/ -> gun name of the image.
-	 * (!!!!!!!1!READ IMPORTANT) 
-	 * the weapon image to respond the weapon must have the same name as the WEAPON  with the extension _img.
-	 * So if the gun prefab is called "Sniper_Piper" the corresponding image must be located in the location form previous,
-	 * with the name "Sniper_Piper_img".
+	 * Resources/Weapo_Icons/ -> 이 경로에 있는 총 이미지를 가져온다.
+	 * 무기 이미지의 확장자가 _img이어야 가져올 수 있다.
+	 * 따라서 총기 프리팹의 이름이 "Sniper_Piper"인 경우 해당 이미지는 이전 위치 양식에 있어야 합니다.
+	 * 이름이 "Sniper_Piper_img"입니다.
 	 */
 	IEnumerator UpdateIconsFromResources(){
 		yield return new WaitForEndOfFrame ();
 
 		icons = new Texture[gunsIHave.Count];
 		for(int i = 0; i < gunsIHave.Count; i++){
-			icons[i] = (Texture) Resources.Load("Weap_Icons/" + gunsIHave[i].ToString() + "_img");
+			icons[i] = (Texture) Resources.Load("Prefabs/Weap_Icons/" + gunsIHave[i].ToString() + "_img");
 		}
 
 	}
@@ -81,7 +80,7 @@ public class GunInventory : MonoBehaviour {
 	void Create_Weapon(){
 
 		/*
-		 * Scrolling wheel waepons changing
+		 * 휠 스크롤 무기 변경
 		 */
 		if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Mouse ScrollWheel") > 0){
 			switchWeaponCooldown = 0;
@@ -103,7 +102,7 @@ public class GunInventory : MonoBehaviour {
 		}
 
 		/*
-		 * Keypad numbers
+		 * 키패드 번호 무기 변경
 		 */
 		if(Input.GetKeyDown(KeyCode.Alpha1) && currentGunCounter != 0){
 			switchWeaponCooldown = 0;
