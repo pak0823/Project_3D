@@ -6,8 +6,7 @@ public class AIBase
 {
     protected Zombi Character;
 
-    protected eAI AIState = eAI.eAI_CREATE;
-
+    public eAI AIState = eAI.eAI_CREATE;
 
     public void Init(Zombi _Character)
     {
@@ -43,16 +42,17 @@ public class AIBase
     protected virtual void Search()
     {
         AIState = eAI.eAI_MOVE;
+        Debug.Log("Search");
     }
 
     protected virtual void Move()
     {
         AIState = eAI.eAI_SEARCH;
+        Debug.Log("Move");
     }
 
     protected virtual void Reset()
     {
         AIState = eAI.eAI_SEARCH;
-        Debug.Log("Reset");
     }
 }

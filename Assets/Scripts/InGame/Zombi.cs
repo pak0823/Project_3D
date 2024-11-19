@@ -6,6 +6,12 @@ public class Zombi : MonoBehaviour
 {
     public eCHARACTER eCHARACTER;
     public AIBase AI;
+    public Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     public virtual void Init(AIBase _Ai)
     {
@@ -22,5 +28,17 @@ public class Zombi : MonoBehaviour
         }
 
         AI.State();
+        if (AI.AIState == eAI.eAI_MOVE || AI.AIState == eAI.eAI_SEARCH)
+        {
+            Move();
+        }
     }
+
+    private void Move()
+    {
+        anim.SetFloat("speed", 1);
+    }
+
+
+
 }

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EasyFPS\MouseLookScript.cs" />
+    <Compile Include="Assets\NewPunch\ShirtlessZombieFree\Scripts\FreeZombie_EyesGlow.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_File.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Loading.cs" />
     <Compile Include="Assets\Scripts\InGame\AIBase.cs" />
