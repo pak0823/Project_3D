@@ -58,27 +58,23 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\EasyFPS\MouseLookScript.cs" />
-    <Compile Include="Assets\NewPunch\ShirtlessZombieFree\Scripts\FreeZombie_EyesGlow.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_File.cs" />
+    <Compile Include="Assets\Scripts\InGame\Character_Interface.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Loading.cs" />
     <Compile Include="Assets\Scripts\InGame\AIBase.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Lobby.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_PlayerPres.cs" />
+    <Compile Include="Assets\Scripts\InGame\Slime.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr.cs" />
-    <Compile Include="Assets\Scripts\EasyFPS\GunInventory.cs" />
+    <Compile Include="Assets\Scripts\InGame\BaseMonster.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_User.cs" />
-    <Compile Include="Assets\Scripts\InGame\Zombi.cs" />
     <Compile Include="Assets\Scripts\Common\Shared.cs" />
     <Compile Include="Assets\Scripts\InGame\BattleMgr.cs" />
-    <Compile Include="Assets\Scripts\EasyFPS\BulletScript.cs" />
+    <Compile Include="Assets\Scripts\InGame\Player.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Login.cs" />
     <Compile Include="Assets\Scripts\InGame\AIMonster.cs" />
-    <Compile Include="Assets\Scripts\EasyFPS\DestroyAfterTimeParticle.cs" />
-    <Compile Include="Assets\Scripts\EasyFPS\PlayerMovementScript.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_Scene.cs" />
     <Compile Include="Assets\Scripts\Common\Enum.cs" />
-    <Compile Include="Assets\Scripts\EasyFPS\GunScript.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Title.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -736,8 +732,14 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.AI.Navigation">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Updater">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
@@ -769,8 +771,14 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BattleMgr : MonoBehaviour
 {
-    public Zombi ZombiPrefab;   //Zombi 프리팹
     public Transform Player;    //Player의 Transform
 
     private void Awake()
@@ -14,12 +13,7 @@ public class BattleMgr : MonoBehaviour
 
     private void Start()
     {
-        Zombi newZombi = Instantiate(ZombiPrefab, transform.position, Quaternion.identity);
-        AIMonster AIMonster = new AIMonster();
-        AIMonster.Init(newZombi); // Zombi 인스턴스를 AIMonster에 전달
-        newZombi.Init(AIMonster); // Zombi의 AI 속성을 초기화
-        AIMonster.Player = Player;
+        BaseMonster monster = new BaseMonster();
+        monster.Start(); // Start 메서드를 호출하여 초기화
     }
-
-
 }
