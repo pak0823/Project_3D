@@ -7,4 +7,6 @@ public interface Character_Interface
 
     float Health { get; set; } // 체력 속성
     float AttackPower { get; } // 공격력 속성 (읽기 전용)
+    float MoveSpeed { get; }    //이동속도 속성
+    float SearchRange { get; }  //탐색범위 속정
 }

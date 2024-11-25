@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     Vector3 Dir;
     State state;
-    Slime target;
+    BaseMonster target;
     WaitForSeconds wfs = new WaitForSeconds(0.1f);
 
     public float MoveSpeed = 2f;
@@ -43,38 +43,6 @@ public class Player : MonoBehaviour
         Move();
         Attack();
     }
-
-    //IEnumerator CorUpdate()
-    //{
-    //    while(true)
-    //    {
-    //        HandleInput();
-    //        UpdateState();
-
-    //        switch (state)
-    //        {
-    //            case State.Idle: Debug.Log("Idle"); break;
-    //            case State.Move: Move(); break;
-    //            //case State.Attack: Attack(); break;
-    //        }
-    //        yield return wfs;
-    //    }
-    //}
-
-    //private void HandleInput()
-    //{
-    //    float h = Input.GetAxis("Horizontal");
-    //    float v = Input.GetAxis("Vertical");
-
-    //    // 상태 변경: 이동 또는 정지
-    //    state = (h != 0 || v != 0) ? State.Move : State.Idle;
-    //}
-
-    //private void UpdateState()
-    //{
-    //    // 상태에 따른 애니메이션 처리
-    //    anim.SetBool("IsMove", state == State.Move);
-    //}
 
     IEnumerator CorUpdate()
     {
@@ -136,19 +104,19 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        bool inputAttack = Input.GetMouseButtonDown(0);
-        if (inputAttack && remainAttackTime <= 0f)
-        {
-            remainAttackTime = AttackDelay;
-            Animator.Play("Attack02", -1, 0);
-            Animator.SetBool("IsMove", false);
-        }
-        remainAttackTime -= Time.deltaTime;
+        //bool inputAttack = Input.GetMouseButtonDown(0);
+        //if (inputAttack && remainAttackTime <= 0f)
+        //{
+        //    remainAttackTime = AttackDelay;
+        //    Animator.Play("Attack02", -1, 0);
+        //    Animator.SetBool("IsMove", false);
+        //}
+        //remainAttackTime -= Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        target = other.GetComponent<Slime>();
+        target = other.GetComponent<BaseMonster>();
         if (target != null)
             transform.LookAt(target.transform);
     }

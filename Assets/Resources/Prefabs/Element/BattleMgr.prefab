@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b002bfcfe8d1f46ab86293d29a1bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZombiPrefab: {fileID: 2065652801990584247, guid: 016e7bf62a334b6408f97e97b5e49ec7, type: 3}
-  Player: {fileID: 479812, guid: c391f12a928274acab8576bb6030641d, type: 3}
+  Player: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}

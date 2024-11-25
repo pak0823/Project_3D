@@ -61,7 +61,6 @@
     <Compile Include="Assets\Scripts\Scene\SceneMgr_File.cs" />
     <Compile Include="Assets\Scripts\InGame\Character_Interface.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Loading.cs" />
-    <Compile Include="Assets\Scripts\InGame\AIBase.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Lobby.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_PlayerPres.cs" />
     <Compile Include="Assets\Scripts\InGame\Slime.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Assets\Scripts\InGame\BattleMgr.cs" />
     <Compile Include="Assets\Scripts\InGame\Player.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Login.cs" />
-    <Compile Include="Assets\Scripts\InGame\AIMonster.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_Scene.cs" />
     <Compile Include="Assets\Scripts\Common\Enum.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Title.cs" />

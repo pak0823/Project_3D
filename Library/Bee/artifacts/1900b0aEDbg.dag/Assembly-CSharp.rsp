@@ -361,8 +361,6 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.4f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/Common/Enum.cs"
 "Assets/Scripts/Common/Shared.cs"
-"Assets/Scripts/InGame/AIBase.cs"
-"Assets/Scripts/InGame/AIMonster.cs"
 "Assets/Scripts/InGame/BaseMonster.cs"
 "Assets/Scripts/InGame/BattleMgr.cs"
 "Assets/Scripts/InGame/Character_Interface.cs"

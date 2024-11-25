@@ -1,19 +1,38 @@
+using System.Collections;
 using UnityEngine;
 
-public class Slime : MonoBehaviour, Character_Interface
+public class Slime : BaseMonster
 {
-    public float Health { get; set; } = 100f; // 체력 초기화
-    public float AttackPower { get; private set; } = 10f; // 공격력 초기화
-
-    public void Move(Vector3 direction)
+    private void Start()
     {
-        // Slime의 이동 로직
-        Debug.Log("Slime is moving in direction: " + direction);
+        base.Start(); // BaseMonster의 Start 메서드 호출
     }
 
-    public void Attack()
+    public override void Attack()
     {
-        // Slime의 공격 로직
-        Debug.Log("Slime attacks with power: " + AttackPower);
+        base.Attack(); // BaseMonster의 Attack 메서드 호출
+        Debug.Log("Slime uses slime splash attack with power: " + AttackPower);
+    }
+
+    public override void Move(Vector3 direction)
+    {
+        base.Move(direction); // BaseMonster의 Move 메서드 호출
+
+    }
+
+    protected override IEnumerator HitRoutine()
+    {
+        Debug.Log("Slime got hit!");
+        Health -= 10f;
+
+        if (Health <= 0)
+        {
+            ChangeState(eMonsterState.DIE);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+            ChangeState(eMonsterState.IDLE);
+        }
     }
 }

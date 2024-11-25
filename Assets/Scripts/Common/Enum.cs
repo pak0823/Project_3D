@@ -8,12 +8,13 @@ public enum eSCENE
     eSECNE_END      //5
 }
 
-public enum eAI
+public enum eMonsterState
 {
-    eAI_CREATE,
-    eAI_SEARCH,
-    eAI_MOVE,
-    eAI_ATTACK,
-    eAI_RESET,
-    eAI_IDLE
+    CREATE,
+    IDLE,
+    MOVE,
+    CHASE,
+    ATTACK,
+    HIT,
+    DIE
 }
