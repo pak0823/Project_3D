@@ -63,7 +63,6 @@
     <Compile Include="Assets\Scripts\UI\UI_Loading.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Lobby.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_PlayerPres.cs" />
-    <Compile Include="Assets\Scripts\InGame\Slime.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\InGame\BaseMonster.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_User.cs" />
@@ -71,6 +70,7 @@
     <Compile Include="Assets\Scripts\InGame\BattleMgr.cs" />
     <Compile Include="Assets\Scripts\InGame\Player.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Login.cs" />
+    <Compile Include="Assets\Scripts\InGame\Monster.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_Scene.cs" />
     <Compile Include="Assets\Scripts\Common\Enum.cs" />
     <Compile Include="Assets\Scripts\UI\UI_Title.cs" />

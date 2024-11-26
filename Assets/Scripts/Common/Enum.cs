@@ -8,7 +8,7 @@ public enum eSCENE
     eSECNE_END      //5
 }
 
-public enum eMonsterState
+public enum eMONSTERSTATE
 {
     CREATE,
     IDLE,
@@ -17,4 +17,10 @@ public enum eMonsterState
     ATTACK,
     HIT,
     DIE
+}
+
+public enum eMONSTERTYPE
+{
+    Slime,
+    Turtle
 }

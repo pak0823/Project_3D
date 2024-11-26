@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     BaseMonster target;
     WaitForSeconds wfs = new WaitForSeconds(0.1f);
 
-    public float MoveSpeed = 2f;
+    public float MoveSpeed = 8f;
     public float HP;
     public float AttackDelay;
     float remainAttackTime;

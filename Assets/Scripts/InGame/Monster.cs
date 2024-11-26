@@ -1,12 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Slime : BaseMonster
+public class Monster : BaseMonster
 {
-    private void Start()
-    {
-        base.Start(); // BaseMonster의 Start 메서드 호출
-    }
 
     public override void Attack()
     {
@@ -27,12 +23,12 @@ public class Slime : BaseMonster
 
         if (Health <= 0)
         {
-            ChangeState(eMonsterState.DIE);
+            ChangeState(eMONSTERSTATE.DIE);
         }
         else
         {
-            yield return new WaitForSeconds(1f);
-            ChangeState(eMonsterState.IDLE);
+            yield return new WaitForSeconds(0.5f);
+            ChangeState(eMONSTERSTATE.IDLE);
         }
     }
 }
