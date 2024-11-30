@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     public float MoveSpeed = 8f;
     public float HP;
     public float AttackDelay;
-    float remainAttackTime;
+    public float AttackPower = 5f;
+    float remainAttackTime = 1f;
 
     Animator Animator;
     CharacterController CharacterController;
@@ -25,6 +26,11 @@ public class Player : MonoBehaviour
         Idle,
         Move,
         Attack
+    }
+
+    private void Awake()
+    {
+        Shared.player = this;
     }
 
     private void Start()
@@ -92,7 +98,7 @@ public class Player : MonoBehaviour
                 Animator.SetBool("IsMove", false);
                 state = State.Idle;
             }
-                
+
 
             if (Input.GetKeyDown(KeyCode.Space))// Spacebar 입력 시 점프
                 Dir.y = 7.5f;
@@ -104,14 +110,14 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        //bool inputAttack = Input.GetMouseButtonDown(0);
-        //if (inputAttack && remainAttackTime <= 0f)
-        //{
-        //    remainAttackTime = AttackDelay;
-        //    Animator.Play("Attack02", -1, 0);
-        //    Animator.SetBool("IsMove", false);
-        //}
-        //remainAttackTime -= Time.deltaTime;
+        bool inputAttack = Input.GetMouseButtonDown(0);
+        if (inputAttack && remainAttackTime <= 0f)
+        {
+            remainAttackTime = AttackDelay;
+            Animator.Play("Attack02", -1, 0);
+            Animator.SetBool("IsMove", false);
+        }
+        remainAttackTime -= Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -133,13 +139,13 @@ public class Player : MonoBehaviour
         //이벤트가 발생하면 발소리 사운드 재생
         //AudioSource.PlayClipAtPoint: 주어진 오디오 클립을 특정 위치에서 재생. 이 메서드는 새로운 AudioSource를 생성하여 해당 위치에 소리를 재생하고, 소리가 끝나면 자동으로 삭제됨.
         //FOOTSTEP 소리를 카메라의 위치에서 재생함.
-        AudioSource.PlayClipAtPoint(FOOTSTEP, Camera.main.transform.position);
+        //AudioSource.PlayClipAtPoint(FOOTSTEP, Camera.main.transform.position);
     }
 
-    //void AnimHit()
-    //{
-    //    //공격 모션 중 특정 설정에 따라 프레임에서 발생한 이벤트
-    //    if (target == null || target.HP <= 0) return;
-    //    target.GetDamage(1);
-    //}
+    void AnimHit()
+    {
+        ////공격 모션 중 특정 설정에 따라 프레임에서 발생한 이벤트
+        //if (target == null || target.Health <= 0) return;
+        //    target.GetDamage;
+    }
 }

@@ -10,8 +10,11 @@ public class BaseMonster : MonoBehaviour, Character_Interface
 
     private eMONSTERSTATE currentState;
 
-    private Transform player; // 플레이어의 Transform
-    private Animator animator;
+    protected Transform player; // 플레이어의 Transform
+    protected Animator animator;
+
+    private float attackCooldown = 2.0f;
+    private float lastAttackTime = 0.0f;
 
     protected void Start()
     {
@@ -36,7 +39,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
                     yield return Chase(); // 추적 상태
                     break;
                 case eMONSTERSTATE.ATTACK:
-                    Attack();
+                    yield return Attack();
                     break;
                 case eMONSTERSTATE.HIT:
                     yield return HitRoutine();
@@ -65,26 +68,40 @@ public class BaseMonster : MonoBehaviour, Character_Interface
     {
         ChangeState(eMONSTERSTATE.IDLE);
     }
-    public virtual void Attack()//공격
+    public virtual IEnumerator Attack()//공격
     {
+        SetAnimationState(2);// 2번: Attack 애니메이션 전환
         Debug.Log("Monster attacks with power: " + AttackPower);
-        SetAnimationState(2);// 2번: Attack 애니메이션 실행
+        lastAttackTime = Time.time;
 
-        ChangeState(eMONSTERSTATE.CHASE);
+        yield return new WaitForSeconds(0.5f); // 애니메이션 대기 (애니메이션이 끝날 때까지 기다림)
+
+        SetAnimationState(0); //0번: 애니메이션 IDLE로 전환
+
+        if (player != null)
+        {
+            ChangeState(eMONSTERSTATE.CHASE);
+        }
+        else
+            ChangeState(eMONSTERSTATE.IDLE);
+
+        yield return new WaitForSeconds(attackCooldown);
     }
 
     protected IEnumerator IdleRoutine()
     {
         SetAnimationState(0);// 0번: Idle 애니메이션 실행
+        Debug.Log("Idle");
         yield return new WaitForSeconds(0.5f);
         Search();
     }
     
 
-
     protected virtual IEnumerator HitRoutine()//공격 피해
     {
-        Health -= 20f;
+        Health -= AttackPower;
+        SetAnimationState(3); // 3번: Hit 애니메이션 전환
+        Debug.Log("Hit Start");
 
         if (Health <= 0)
         {
@@ -92,7 +109,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
         }
         else
         {
-            yield return new WaitForSeconds(1f); // 1초 대기
+            yield return new WaitForSeconds(0.5f); // 1초 대기
             ChangeState(eMONSTERSTATE.IDLE);
         }
     }
@@ -105,15 +122,30 @@ public class BaseMonster : MonoBehaviour, Character_Interface
     public virtual void Move(Vector3 direction)//이동
     {
         // 이동 로직 구현
-
         Vector3 moveDirection = direction;
         moveDirection.y = 0;
         transform.Translate(moveDirection, Space.World);
     }
 
+    protected virtual void Search()//탐색
+    {
+        if (player != null)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= SearchRange)
+            {
+                ChangeState(eMONSTERSTATE.CHASE);
+            }
+        }
+        else
+        {
+            ChangeState(eMONSTERSTATE.IDLE);
+        }
+    }
+
     protected virtual IEnumerator Chase()//추적
     {
-        Debug.Log("Chase");
         while (currentState == eMONSTERSTATE.CHASE)
         {
             if (player != null)
@@ -123,12 +155,12 @@ public class BaseMonster : MonoBehaviour, Character_Interface
 
                 //몬스터가 플레이어를 바라보게 회전
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 4f); // 부드러운 회전
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3f); // 부드러운 회전
 
                 // 플레이어와의 거리 계산
                 float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-                if (distanceToPlayer <= 2f)
+                if (distanceToPlayer <= 1.5f)
                 {
                     ChangeState(eMONSTERSTATE.ATTACK); // 공격 상태로 전환
                     yield break; // 추적 코루틴 종료
@@ -146,33 +178,24 @@ public class BaseMonster : MonoBehaviour, Character_Interface
         }
     }
 
-    protected virtual void Search()//탐색
-    {
-        Debug.Log("Search");
-        if (player != null)
-        {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            if (distanceToPlayer <= SearchRange)
-            {
-                ChangeState(eMONSTERSTATE.CHASE);
-            }
-        }
-        else
-            Debug.Log("Search null");
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             player = other.transform;
+        }
+        if(other.CompareTag("PlayerWeapon"))
+        {
+            Debug.Log("change Hit");
+            ChangeState(eMONSTERSTATE.HIT); 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             player = null;
         }

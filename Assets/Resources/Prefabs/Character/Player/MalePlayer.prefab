@@ -2366,7 +2366,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8855052669661678444}
   - component: {fileID: 9036980633323257398}
-  - component: {fileID: 2620415802980351305}
+  - component: {fileID: 4915124796462448403}
+  - component: {fileID: 1172743486862853468}
   m_Layer: 0
   m_Name: MalePlayer
   m_TagString: Untagged
@@ -2415,7 +2416,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2620415802980351305
+--- !u!114 &4915124796462448403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2427,8 +2428,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4db0437042258540bf8ab8be5a61ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
-  FOOTSTEP: {fileID: 8300000, guid: 1deb201b8bf8f89479323a74e421150b, type: 3}
+  MoveSpeed: 8
+  HP: 0
+  AttackDelay: 0
+  FOOTSTEP: {fileID: 0}
+--- !u!143 &1172743486862853468
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189980434977739222}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 0.87
+  m_SlopeLimit: 45
+  m_StepOffset: 0.1
+  m_SkinWidth: 0.02
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &8206070634150816031
 GameObject:
   m_ObjectHideFlags: 0

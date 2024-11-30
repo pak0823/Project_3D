@@ -3,17 +3,16 @@ using UnityEngine;
 
 public class Monster : BaseMonster
 {
-
-    public override void Attack()
+    public override IEnumerator Attack()
     {
-        base.Attack(); // BaseMonster의 Attack 메서드 호출
-        Debug.Log("Slime uses slime splash attack with power: " + AttackPower);
+        // BaseMonster의 Attack 메서드 호출
+        yield return base.Attack();
+        Debug.Log("Attack");
     }
 
     public override void Move(Vector3 direction)
     {
         base.Move(direction); // BaseMonster의 Move 메서드 호출
-
     }
 
     protected override IEnumerator HitRoutine()
