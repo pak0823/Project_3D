@@ -14,7 +14,6 @@ public class BaseMonster : MonoBehaviour, Character_Interface
     protected Animator animator;
 
     private float attackCooldown = 2.0f;
-    private float lastAttackTime = 0.0f;
 
     protected void Start()
     {
@@ -72,7 +71,6 @@ public class BaseMonster : MonoBehaviour, Character_Interface
     {
         SetAnimationState(2);// 2번: Attack 애니메이션 전환
         Debug.Log("Monster attacks with power: " + AttackPower);
-        lastAttackTime = Time.time;
 
         yield return new WaitForSeconds(0.5f); // 애니메이션 대기 (애니메이션이 끝날 때까지 기다림)
 
@@ -91,8 +89,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
     protected IEnumerator IdleRoutine()
     {
         SetAnimationState(0);// 0번: Idle 애니메이션 실행
-        Debug.Log("Idle");
-        yield return new WaitForSeconds(0.5f);
+        yield return null;
         Search();
     }
     
@@ -109,7 +106,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
         }
         else
         {
-            yield return new WaitForSeconds(0.5f); // 1초 대기
+            yield return new WaitForSeconds(0.5f); //대기
             ChangeState(eMONSTERSTATE.IDLE);
         }
     }
@@ -132,7 +129,6 @@ public class BaseMonster : MonoBehaviour, Character_Interface
         if (player != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
             if (distanceToPlayer <= SearchRange)
             {
                 ChangeState(eMONSTERSTATE.CHASE);

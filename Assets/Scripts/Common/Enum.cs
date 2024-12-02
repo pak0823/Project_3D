@@ -24,3 +24,11 @@ public enum eMONSTERTYPE
     Slime,
     Turtle
 }
+
+public enum ePLAYERSTATE
+{
+    IDLE,
+    MOVE,
+    ATTACK,
+    HIT
+}
