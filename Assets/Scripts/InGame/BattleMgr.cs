@@ -13,10 +13,10 @@ public class BattleMgr : MonoBehaviour
 
     private void Start()
     {
-        CreateMonster(eMONSTERTYPE.Slime, new Vector3(0, 0, 0), 100f, 2f, 6f);
-        CreateMonster(eMONSTERTYPE.Turtle, new Vector3(3, 0, 0), 80f, 1f, 6f);
+        CreateMonster(eMONSTERTYPE.Slime, new Vector3(0, 0, 0), 100f, 10f, 20f, 4f);  //몬스터 enum, 위치값, HP, 공격력, 이동속도, 탐색 범위
+        CreateMonster(eMONSTERTYPE.Turtle, new Vector3(3, 0, 0), 120f, 15f, 15f, 5f);
     }
-    private void CreateMonster(eMONSTERTYPE monsterType, Vector3 Position, float Health, float MoveSpeed, float SearchRange)
+    private void CreateMonster(eMONSTERTYPE monsterType, Vector3 Position, float Health, float AttackPower, float MoveSpeed, float SearchRange)
     {
 
         string prefabPath = $"Prefabs/Character/Monster/{monsterType}"; // enum을 사용하여 문자열 생성
@@ -33,6 +33,7 @@ public class BattleMgr : MonoBehaviour
             if (monster != null)
             {
                 monster.Health = Health; // 초기 체력 설정
+                monster.AttackPower = AttackPower;  //초기 공격력 설정
                 monster.MoveSpeed = MoveSpeed;  //초기 이동속도 설정
                 monster.SearchRange = SearchRange;  //초기 탐색범위 설정
             }

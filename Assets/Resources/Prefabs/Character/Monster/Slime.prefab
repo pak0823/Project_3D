@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 95457531584545886}
   - component: {fileID: 6441419860377336868}
   - component: {fileID: 7012235053939015308}
-  - component: {fileID: 9211830079616068771}
+  - component: {fileID: 3479350652745809297}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -505,8 +505,8 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &9211830079616068771
-CapsuleCollider:
+--- !u!143 &3479350652745809297
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -520,11 +520,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.53
+  m_Enabled: 1
+  serializedVersion: 3
   m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.39, z: 0}
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.7, z: 0}

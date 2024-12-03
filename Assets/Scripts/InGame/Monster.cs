@@ -3,31 +3,25 @@ using UnityEngine;
 
 public class Monster : BaseMonster
 {
-    public override IEnumerator Attack()
-    {
-        // BaseMonster의 Attack 메서드 호출
-        yield return base.Attack();
-        Debug.Log("Attack");
-    }
+    //public override IEnumerator Attack()
+    //{
+    //    yield return base.Attack();
+    //}
 
-    public override void Move(Vector3 direction)
-    {
-        base.Move(direction); // BaseMonster의 Move 메서드 호출
-    }
+    //public override void Move(Vector3 direction)
+    //{
+    //    base.Move(direction);
+    //}
 
-    protected override IEnumerator HitRoutine()
-    {
-        Debug.Log("Slime got hit!");
-        Health -= 10f;
+    //protected override IEnumerator HitRoutine()
+    //{
+    //    //base.HitRoutine();
+    //    yield return null;
+    //}
 
-        if (Health <= 0)
-        {
-            ChangeState(eMONSTERSTATE.DIE);
-        }
-        else
-        {
-            yield return new WaitForSeconds(0.5f);
-            ChangeState(eMONSTERSTATE.IDLE);
-        }
-    }
+    //protected override IEnumerator Die()
+    //{
+    //    base.Die();
+    //    yield return null;
+    //}
 }

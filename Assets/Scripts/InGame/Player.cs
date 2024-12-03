@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Vector3 Dir;
-    ePLAYERSTATE currentState;
+    private Vector3 Dir;
+    private ePLAYERSTATE currentState;
 
+    // Player settings
     public float MoveSpeed = 8f;
     public float Health = 100f;
-    public float AttackPower = 5f;
-    bool isAttacking = false;
+    public float AttackPower = 20f;
     public float JumpHeight = 5f; // 점프 높이
     public float Gravity = -9.81f; // 중력
+
+    private bool isAttacking = false;
     private float verticalVelocity; // 수직 속도
 
-    Animator Animator;
-    CharacterController CharacterController;
+    private Animator animator;
+    private CharacterController characterController;
 
     private void Awake()
     {
@@ -25,8 +27,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Animator = GetComponent<Animator>();
-        CharacterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
 
         currentState = ePLAYERSTATE.IDLE;
         StartCoroutine(StateMachine());
@@ -54,85 +56,81 @@ public class Player : MonoBehaviour
     }
     private void SetAnimationState(int state)    //애니메이션 상태 세팅
     {
-        Animator.SetInteger("AnimationState", state);
+        animator.SetInteger("AnimationState", state);
     }
     private void ChangeState(ePLAYERSTATE newState)//상태변경
     {
         currentState = newState;
     }
 
-    IEnumerator IdleRoutine()
+    private IEnumerator IdleRoutine()
     {
         SetAnimationState(0);
-        ChangeState(ePLAYERSTATE.MOVE);
-
-        if (Input.GetMouseButtonDown(0) && !isAttacking) // 왼쪽 클릭 시 공격 상태로 전환
-        {
-            ChangeState(ePLAYERSTATE.ATTACK);
-        }
-
-        yield return null;
-    }
-
-    IEnumerator MoveRoutine()
-    {
-        if (CharacterController.isGrounded)//캐릭터가 지면에 있는 경우
-        {
-            verticalVelocity = 0; // 착지 시 수직 속도 초기화
-            var h = Input.GetAxis("Horizontal");
-            var v = Input.GetAxis("Vertical");
-
-            Jump();
-
-            Dir = new Vector3(h, 0, v).normalized * MoveSpeed;
-
-            if (Dir != Vector3.zero)
-            {
-                SetAnimationState(1);
-                transform.rotation = Quaternion.Euler(0, Mathf.Atan2(h, v) * Mathf.Rad2Deg, 0);
-                //진행 방향으로 캐릭터 회전
-                //Mathf.Atan2(h, v): 두 개의 인자를 받아 아크탄젠트 값을 계산, 주어진 두 값의 비율을 기반으로 각도를 반환. 반환되는 각도는 라디안 단위
-                //Mathf.Rad2Deg: 라디안을 도(degree)로 변환하는 상수
-                //Quaternion.Euler(x, y, z): 주어진 각도를 사용하여 Quaternion을 생성. 각도들은 각각 x축, y축, z축을 기준으로 하는 회전을 나타냄.
-            }
-            else
-            {
-                ChangeState(ePLAYERSTATE.IDLE);
-            }
-        }
-        else
-        {
-            verticalVelocity += Gravity * Time.deltaTime; // 공중에서 중력 적용
-        }
         if (Input.GetMouseButtonDown(0) && !isAttacking)
         {
             ChangeState(ePLAYERSTATE.ATTACK);
         }
-
-        Dir.y = verticalVelocity; // 수직 속도를 방향 벡터에 추가
-        CharacterController.Move(Dir * Time.deltaTime);
+        else if (Input.anyKey) // 키 입력을 감지하여 MOVE 상태로 전환
+        {
+            ChangeState(ePLAYERSTATE.MOVE);
+        }
         yield return null;
     }
-    IEnumerator Attack()
+
+    private IEnumerator MoveRoutine()
     {
-        if (isAttacking)
+        if (characterController.isGrounded)
         {
-            yield break;
+            verticalVelocity = 0; // 착지 시 수직 속도 초기화
+            HandleMovement();
+            HandleJump();
         }
-        isAttacking = true;
-        SetAnimationState(2);
-        isAttacking = false;
-        ChangeState(ePLAYERSTATE.IDLE);
-        yield return new WaitForSeconds(0.65f); //애니메이션 대기 시간
+        else
+        {
+            verticalVelocity += Gravity * Time.deltaTime; // 중력 적용
+        }
+
+        Dir.y = verticalVelocity; // 수직 속도를 방향 벡터에 추가
+        characterController.Move(Dir * Time.deltaTime);
+        yield return null;
     }
 
-    void Jump()
+    private void HandleMovement()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Dir = new Vector3(h, 0, v).normalized * MoveSpeed;
+
+        if (Dir != Vector3.zero)
+        {
+            SetAnimationState(1);
+            transform.rotation = Quaternion.Euler(0, Mathf.Atan2(h, v) * Mathf.Rad2Deg, 0);
+        }
+        else
+        {
+            ChangeState(ePLAYERSTATE.IDLE);
+        }
+    }
+
+
+    private IEnumerator Attack()
+    {
+        if (isAttacking) yield break;
+
+        isAttacking = true;
+        SetAnimationState(2);
+        yield return new WaitForSeconds(0.65f); // 애니메이션 대기 시간
+        isAttacking = false;
+        ChangeState(ePLAYERSTATE.IDLE);
+    }
+
+    private void HandleJump()
     {
         if (Input.GetKeyDown(KeyCode.Space)) // 스페이스바로 점프
         {
             Debug.Log("Jump");
             verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity); // 점프 속도 계산
-            Debug.Log(verticalVelocity);
         }
     }
 }
