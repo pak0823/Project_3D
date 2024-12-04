@@ -13,8 +13,8 @@ public class BattleMgr : MonoBehaviour
 
     private void Start()
     {
-        CreateMonster(eMONSTERTYPE.Slime, new Vector3(0, 0, 0), 100f, 10f, 20f, 4f);  //몬스터 enum, 위치값, HP, 공격력, 이동속도, 탐색 범위
-        CreateMonster(eMONSTERTYPE.Turtle, new Vector3(3, 0, 0), 120f, 15f, 15f, 5f);
+        CreateMonster(eMONSTERTYPE.Slime, new Vector3(0, 0, 0), 100f, 10f, 2f, 4f);  //몬스터 enum, 위치값, HP, 공격력, 이동속도, 탐색 범위
+        CreateMonster(eMONSTERTYPE.Turtle, new Vector3(3, 0, 0), 120f, 15f, 1.5f, 5f);
     }
     private void CreateMonster(eMONSTERTYPE monsterType, Vector3 Position, float Health, float AttackPower, float MoveSpeed, float SearchRange)
     {

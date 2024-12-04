@@ -143,6 +143,14 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 1172743486862853468, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557427896835338015, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 2620415802980351305, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: MoveSpeed
       value: 6
@@ -155,9 +163,25 @@ PrefabInstance:
       propertyPath: JumpHeight
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4915124796462448403, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: AttackPower
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915124796462448403, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_TagString
@@ -279,7 +303,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -305,7 +329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804418893}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 5, z: -10}
+  m_LocalPosition: {x: 0, y: 10, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -492,7 +516,7 @@ GameObject:
   - component: {fileID: 1920125234}
   - component: {fileID: 1920125233}
   - component: {fileID: 1920125232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

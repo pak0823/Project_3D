@@ -2367,7 +2367,8 @@ GameObject:
   - component: {fileID: 8855052669661678444}
   - component: {fileID: 9036980633323257398}
   - component: {fileID: 4915124796462448403}
-  - component: {fileID: 1172743486862853468}
+  - component: {fileID: 2557427896835338015}
+  - component: {fileID: 400159384343374135}
   m_Layer: 0
   m_Name: MalePlayer
   m_TagString: Untagged
@@ -2429,11 +2430,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 8
-  HP: 0
-  AttackDelay: 0
-  FOOTSTEP: {fileID: 0}
---- !u!143 &1172743486862853468
-CharacterController:
+  Health: 100
+  AttackPower: 100
+  JumpForce: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!54 &2557427896835338015
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189980434977739222}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &400159384343374135
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2450,14 +2481,11 @@ CharacterController:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1
-  m_Radius: 0.87
-  m_SlopeLimit: 45
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.02
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.8, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.52
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.755, z: 0}
 --- !u!1 &8206070634150816031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2797,6 +2825,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5086268201243115593, guid: 9fbe61d1f4bc091439f25f985dd189a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362921976901022191, guid: 9fbe61d1f4bc091439f25f985dd189a5, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5610884078883986163, guid: 9fbe61d1f4bc091439f25f985dd189a5, type: 3}

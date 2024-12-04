@@ -8,17 +8,18 @@ public class Player : MonoBehaviour
     private ePLAYERSTATE currentState;
 
     // Player settings
-    public float MoveSpeed = 8f;
+    public float MoveSpeed = 6f;
     public float Health = 100f;
-    public float AttackPower = 20f;
-    public float JumpHeight = 5f; // 점프 높이
-    public float Gravity = -9.81f; // 중력
+    public float AttackPower = 100f;
+    public float JumpForce = 5f; // 점프 힘
+    public LayerMask groundLayer; // 땅 레이어
 
     private bool isAttacking = false;
-    private float verticalVelocity; // 수직 속도
+    private bool isGrounded = true; // 땅에 닿아 있는지 상태
 
     private Animator animator;
-    private CharacterController characterController;
+    private Rigidbody Rigidbody;
+    private BoxCollider weaponCollider; // 무기의 콜라이더
 
     private void Awake()
     {
@@ -28,7 +29,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        characterController = GetComponent<CharacterController>();
+        Rigidbody = GetComponent<Rigidbody>();
+        weaponCollider = GetComponentInChildren<BoxCollider>(); // 무기가 자식 오브젝트로 있을 경우
 
         currentState = ePLAYERSTATE.IDLE;
         StartCoroutine(StateMachine());
@@ -79,19 +81,9 @@ public class Player : MonoBehaviour
 
     private IEnumerator MoveRoutine()
     {
-        if (characterController.isGrounded)
-        {
-            verticalVelocity = 0; // 착지 시 수직 속도 초기화
-            HandleMovement();
-            HandleJump();
-        }
-        else
-        {
-            verticalVelocity += Gravity * Time.deltaTime; // 중력 적용
-        }
-
-        Dir.y = verticalVelocity; // 수직 속도를 방향 벡터에 추가
-        characterController.Move(Dir * Time.deltaTime);
+        HandleMovement();
+        HandleJump();
+        Defend();
         yield return null;
     }
 
@@ -106,11 +98,19 @@ public class Player : MonoBehaviour
         {
             SetAnimationState(1);
             transform.rotation = Quaternion.Euler(0, Mathf.Atan2(h, v) * Mathf.Rad2Deg, 0);
+            Rigidbody.MovePosition(Rigidbody.position + Dir * Time.deltaTime);
         }
         else
         {
             ChangeState(ePLAYERSTATE.IDLE);
         }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            SetAnimationState(6);
+            Dir = Dir * 0.3f;
+        }
+            
     }
 
 
@@ -120,17 +120,45 @@ public class Player : MonoBehaviour
 
         isAttacking = true;
         SetAnimationState(2);
+        weaponCollider.enabled = true;
         yield return new WaitForSeconds(0.65f); // 애니메이션 대기 시간
         isAttacking = false;
+        weaponCollider.enabled = false;
         ChangeState(ePLAYERSTATE.IDLE);
+    }
+
+    private void Defend()
+    {
+        if(Input.GetMouseButtonDown(1))
+            SetAnimationState(4);
     }
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // 스페이스바로 점프
+        // 땅에 닿아 있을 때만 점프 가능
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space)) // 스페이스바로 점프
         {
             Debug.Log("Jump");
-            verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity); // 점프 속도 계산
+            Rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse); // 점프 힘을 적용
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //layerMask는 레이어를 비트로 판단하기 때문에 (1 << collision.gameObject.layer)와 같이 설정해야 한다.
+        // 땅에 닿았는지 확인
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        // 땅에서 떨어졌을 때
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
+        {
+            isGrounded = false;
         }
     }
 }
