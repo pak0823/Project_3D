@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseMonster : MonoBehaviour, Character_Interface
@@ -21,7 +22,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
 
 
     //변수
-    private float attackCooldown = 2.0f;
+    private float attackCooldown = 0;
     bool isHit = false;
 
 
@@ -51,7 +52,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
                     yield return ChaseRoutine();
                     break;
                 case eMONSTERSTATE.ATTACK:
-                    yield return AttackRoutine();
+                    AttackRoutine();
                     break;
                 case eMONSTERSTATE.HIT:
                     yield return HitRoutine();
@@ -130,6 +131,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
                 ChangeState(eMONSTERSTATE.IDLE); // 플레이어가 없으면 대기 상태로 전환
                 yield break; // 코루틴 종료
             }
+
             // 플레이어를 향해 이동
             Vector3 direction = (player.transform.position - transform.position).normalized;
 
@@ -147,8 +149,7 @@ public class BaseMonster : MonoBehaviour, Character_Interface
             }
 
             ChangeAnimationState(1);// 1번: Move 애니메이션 실행
-            Move(direction * MoveSpeed * Time.deltaTime); // Move 메서드 호출
-            Debug.Log("chaseing");
+            Move(direction); // Move 메서드 호출
             yield return null; // 다음 프레임까지 대기
         }
     }
@@ -156,28 +157,45 @@ public class BaseMonster : MonoBehaviour, Character_Interface
     {
         // 이동 로직 구현
         Vector3 moveDirection = direction.normalized * MoveSpeed;
-        moveDirection.y = Rigidbody.velocity.y; // 기존의 y 속도를 유지하여 중력 적용
+        //moveDirection.y = Rigidbody.velocity.y; // 기존의 y 속도를 유지하여 중력 적용
         Rigidbody.velocity = moveDirection; // Rigidbody의 속도로 이동
 
     }
 
     ///// 공격 부분 //////
 
-    public virtual IEnumerator AttackRoutine()//공격
-    {
-        ChangeState(eMONSTERSTATE.ATTACK);
-        ChangeAnimationState(2);// 2번: Attack 애니메이션 전환
-        yield return new WaitForSeconds(0.5f); // 애니메이션 대기 (애니메이션이 끝날 때까지 기다림)
-        ChangeAnimationState(0); //0번: 애니메이션 IDLE로 전환
+    //public virtual IEnumerator AttackRoutine()//공격
+    //{
+    //    ChangeAnimationState(2);// 2번: Attack 애니메이션 전환
+    //    Debug.Log("Attack");
+    //    //yield return new WaitForSeconds(attackCooldown);
+    //    yield return null;
+    //}
 
-        ChangeState(player != null ? eMONSTERSTATE.CHASE : eMONSTERSTATE.IDLE);
-        yield return new WaitForSeconds(attackCooldown);
+    public virtual void AttackRoutine()//공격
+    {
+        if(attackCooldown <= 0)
+        {
+            ChangeAnimationState(2);// 2번: Attack 애니메이션 전환
+            attackCooldown = 2f;
+            StartCoroutine(AttackCoolTime());
+            Debug.Log("Attack");
+        }
     }
 
     protected virtual bool IsInAttackRange(float distanceToPlayer)
     {
         float attackRange = 1.5f; // 공격 거리 설정
         return distanceToPlayer <= attackRange;
+    }
+
+    IEnumerator AttackCoolTime()
+    {
+        while (attackCooldown >= 0)
+        {
+            attackCooldown -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     ///// Hit & Die //////
@@ -187,7 +205,8 @@ public class BaseMonster : MonoBehaviour, Character_Interface
         if(!isHit)
         {
             isHit = true;
-            ChangeAnimationState(3); // Hit 애니메이션 전환
+            if(currentState != eMONSTERSTATE.ATTACK)
+                ChangeAnimationState(3); // Hit 애니메이션 전환
             Health -= player.AttackPower; // 체력 감소
             Debug.Log($"Current Health: {Health}");
 
@@ -198,12 +217,11 @@ public class BaseMonster : MonoBehaviour, Character_Interface
             }
             else
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.1f);
+                isHit = false; // 맞는 상태 해제
                 ChangeState(eMONSTERSTATE.IDLE); // Idle 상태로 전환
             }
         }
-
-        isHit = false; // 맞는 상태 해제
     }
 
     protected virtual IEnumerator DieRoutine()//사망
@@ -239,7 +257,10 @@ public class BaseMonster : MonoBehaviour, Character_Interface
             Player playerCompent = other.GetComponentInParent<Player>();
             if (playerCompent != null)
             {
-                ChangeState(eMONSTERSTATE.HIT);
+                if (currentState != eMONSTERSTATE.HIT) // HIT 상태가 아닐 때만 반응
+                {
+                    ChangeState(eMONSTERSTATE.HIT);
+                }
             }
             else
                 Debug.LogError("Player component not found!");

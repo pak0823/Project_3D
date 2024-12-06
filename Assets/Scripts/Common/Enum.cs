@@ -22,7 +22,10 @@ public enum eMONSTERSTATE
 public enum eMONSTERTYPE
 {
     Slime,
-    Turtle
+    Turtle,
+    Cactus,
+    Mushroom,
+    Golem
 }
 
 public enum ePLAYERSTATE

@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\UI\UI_Lobby.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_PlayerPres.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr.cs" />
+    <Compile Include="Assets\Scripts\Common\CameraMove.cs" />
     <Compile Include="Assets\Scripts\InGame\BaseMonster.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneMgr_User.cs" />
     <Compile Include="Assets\Scripts\Common\Shared.cs" />

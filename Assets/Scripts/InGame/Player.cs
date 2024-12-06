@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Vector3 Dir;
+    private Vector3 Direction;
     private ePLAYERSTATE currentState;
 
     // Player settings
@@ -56,14 +56,9 @@ public class Player : MonoBehaviour
             yield return null;
         }
     }
-    private void SetAnimationState(int state)    //애니메이션 상태 세팅
-    {
-        animator.SetInteger("AnimationState", state);
-    }
-    private void ChangeState(ePLAYERSTATE newState)//상태변경
-    {
-        currentState = newState;
-    }
+
+
+    ///// 이동 조작 //////
 
     private IEnumerator IdleRoutine()
     {
@@ -76,6 +71,7 @@ public class Player : MonoBehaviour
         {
             ChangeState(ePLAYERSTATE.MOVE);
         }
+
         yield return null;
     }
 
@@ -83,36 +79,49 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
-        Defend();
+        //Defend();
         yield return null;
     }
 
     private void HandleMovement()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float Horizontal = Input.GetAxis("Horizontal");
+        float Vertical = Input.GetAxis("Vertical");
+        bool ShiftRun = Input.GetButton("LeftShift");
 
-        Dir = new Vector3(h, 0, v).normalized * MoveSpeed;
+        Direction = new Vector3(Horizontal, 0, Vertical).normalized * MoveSpeed;
 
-        if (Dir != Vector3.zero)
+        if (Direction != Vector3.zero)
         {
             SetAnimationState(1);
-            transform.rotation = Quaternion.Euler(0, Mathf.Atan2(h, v) * Mathf.Rad2Deg, 0);
-            Rigidbody.MovePosition(Rigidbody.position + Dir * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(0, Mathf.Atan2(Horizontal, Vertical) * Mathf.Rad2Deg, 0);
+            Rigidbody.MovePosition(Rigidbody.position + Direction * Time.deltaTime);
         }
         else
         {
             ChangeState(ePLAYERSTATE.IDLE);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (ShiftRun)
         {
             SetAnimationState(6);
-            Dir = Dir * 0.3f;
+            Direction = Direction * 0.3f;
         }
             
     }
 
+    private void HandleJump()
+    {
+        // 땅에 닿아 있을 때만 점프 가능
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space)) // 스페이스바로 점프
+        {
+            Debug.Log("Jump");
+            Rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse); // 점프 힘을 적용
+        }
+    }
+
+
+    ///// 공격동작 및 방어동작 //////
 
     private IEnumerator Attack()
     {
@@ -133,15 +142,20 @@ public class Player : MonoBehaviour
             SetAnimationState(4);
     }
 
-    private void HandleJump()
+    ///// 상태 세팅 //////
+
+    private void SetAnimationState(int state)    //애니메이션 상태 세팅
     {
-        // 땅에 닿아 있을 때만 점프 가능
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space)) // 스페이스바로 점프
-        {
-            Debug.Log("Jump");
-            Rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse); // 점프 힘을 적용
-        }
+        animator.SetInteger("AnimationState", state);
     }
+    private void ChangeState(ePLAYERSTATE newState)//상태변경
+    {
+        currentState = newState;
+    }
+
+
+
+    ///// 충돌처리 //////
 
     private void OnCollisionEnter(Collision collision)
     {
