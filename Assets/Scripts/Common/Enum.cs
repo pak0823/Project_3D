@@ -8,6 +8,16 @@ public enum eSCENE
     eSECNE_END      //5
 }
 
+public enum ePLAYERSTATE
+{
+    IDLE,
+    MOVE,
+    ATTACK,
+    HIT,
+    DEFEND,
+    DIE
+}
+
 public enum eMONSTERSTATE
 {
     CREATE,
@@ -26,12 +36,4 @@ public enum eMONSTERTYPE
     Cactus,
     Mushroom,
     Golem
-}
-
-public enum ePLAYERSTATE
-{
-    IDLE,
-    MOVE,
-    ATTACK,
-    HIT
 }
