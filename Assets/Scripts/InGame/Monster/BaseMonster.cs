@@ -165,14 +165,6 @@ public class BaseMonster : MonoBehaviour, Character_Interface
 
     ///// 공격 부분 //////
 
-    //public virtual IEnumerator AttackRoutine()//공격
-    //{
-    //    ChangeAnimationState(2);// 2번: Attack 애니메이션 전환
-    //    Debug.Log("Attack");
-    //    //yield return new WaitForSeconds(attackCooldown);
-    //    yield return null;
-    //}
-
     public virtual void AttackRoutine()//공격
     {
         if(attackCooldown <= 0)
@@ -235,7 +227,6 @@ public class BaseMonster : MonoBehaviour, Character_Interface
         ChangeAnimationState(5); // Die 애니메이션 전환
         Rigidbody.isKinematic = true; // Rigidbody를 비활성화하여 움직이지 않도록 함
         yield return new WaitForSeconds(2f);
-        //Destroy(gameObject);
         gameObject.SetActive(false);
     }
 

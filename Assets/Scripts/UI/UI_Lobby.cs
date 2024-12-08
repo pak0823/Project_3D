@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Lobby : MonoBehaviour
 {
-    public void OnBtnGameStart()
+    public void OnBtnLobby()
     {
         Shared.SceneMgr.ChangeScene(eSCENE.eSCENE_BATTLE);
     }

@@ -1,23 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UI_Loading : MonoBehaviour
 {
+    static string nextScene;
+
+    [SerializeField]
+    Image progressBar;
+
     void Start()
     {
-        StartCoroutine(GoToLobby());
+        StartCoroutine(LoadSceneProcess());
     }
 
-    IEnumerator GoToLobby()
+    public IEnumerator LoadSceneProcess()
     {
-        WaitForSeconds WFS = new WaitForSeconds(3f);
+        AsyncOperation op = SceneManager.LoadSceneAsync("Loading");
+        op.allowSceneActivation = false;
 
-        gameObject.SetActive(true);
+        float timer = 0f;
+        while (!op.isDone)
+        {
+            yield return null;
 
-        yield return WFS;
-
-        gameObject.SetActive(false);
-        Shared.SceneMgr.ChangeScene(eSCENE.eSCENE_LOBBY);
+            if (op.progress < 0.9f)
+            {
+                progressBar.fillAmount = op.progress;
+            }
+            else
+            {
+                timer += Time.unscaledDeltaTime;
+                progressBar.fillAmount = Mathf.Lerp(0f, 1f, timer);
+                if (progressBar.fillAmount >= 1f)
+                {
+                    op.allowSceneActivation = true;
+                    Shared.SceneMgr.ChangeScene(eSCENE.eSCENE_LOBBY);
+                    yield break;
+                }
+            }
+        }
     }
 }

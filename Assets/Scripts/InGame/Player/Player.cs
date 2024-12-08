@@ -40,9 +40,6 @@ public partial class Player : MonoBehaviour
     ///// 상태 세팅 //////
 
 
-
-
-
     IEnumerator StateMachine()
     {
         while (true)
@@ -59,18 +56,51 @@ public partial class Player : MonoBehaviour
                 case ePLAYERSTATE.ATTACK:
                         yield return AttackRoutine();
                         break;
-                //case ePLAYERSTATE.DEFEND:
-                //      yield return DefendRoutine();
-                //      break;
+                case ePLAYERSTATE.DEFEND:
+                        yield return DefendRoutine();
+                        break;
                 case ePLAYERSTATE.HIT:
-                    yield return HitRoutine();
-                    break;
+                        yield return HitRoutine();
+                        break;
                 case ePLAYERSTATE.DIE:
                         yield return Die();
                         break;
             }
             yield return null;
         }
+    }
+
+    private void Update()
+    {
+        HandleInput();
+    }
+
+    private void HandleInput()//입력 처리
+    {
+        IsMoving();
+        IsDefend();
+        IsAttack();
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))//점프키를 입력했을 때
+        {
+            HandleJump();
+        }
+
+        if(IsMoving())
+        {
+            ChangeState(ePLAYERSTATE.MOVE);
+        }
+        if (IsAttack())//공격키를 입력했을 때
+        {
+            ChangeState(ePLAYERSTATE.ATTACK);
+        }
+        if (IsDefend()) ////방어키를 입력했을 때
+        {
+            ChangeState(ePLAYERSTATE.DEFEND);
+        }
+
+        if(!IsMoving() && !IsAttack() && !IsDefend())
+            ChangeState(ePLAYERSTATE.IDLE);
     }
 
     private void ChangeAnimationState(int state)    //애니메이션 상태 세팅
@@ -117,7 +147,6 @@ public partial class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
         if(other.CompareTag("Monster"))
         {
             basemonster = other.GetComponentInParent<BaseMonster>();
